@@ -6,6 +6,9 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 const mongoose = require('mongoose');
+const bioSchema = new mongoose.Schema({name: String, age: Number})
+
+const bio = mongoose.model('name', bioSchema);
 
 // Gets the Username and Password
 const MONGO_URI = `mongodb://${process.env.MONGO_INITDB_ROOT_USERNAME}:${process.env.MONGO_INITDB_ROOT_PASSWORD}@mongo:27017`;
@@ -27,7 +30,15 @@ const connectDB = async () => {
 connectDB();
 
 // Creating the `GET` route
-app.get("/", (req, res) => {
+app.get("/", async (req, res) => {
+  console.log("here are params", req.query)
+
+  const getBio = new bio({ name: req.query.name, age: req.query.age });
+  await getBio.save()
+
+  const allbio = await bio.find();
+  console.log(allbio);
+
   res.send("<h1>Welcome Friends</h1>");
 });
 
