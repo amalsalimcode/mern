@@ -1,0 +1,20 @@
+# Version of Docker-compose
+version: '3.8'
+services:
+  # Service name
+  node:
+    # Creating a custom image
+    build:
+      # Location to the Dockerfile
+      context: .
+      # Name of the Dockerfile
+      dockerfile: Dockerfile
+    volumes:
+      # ADD THE CONFIGURATION FROM THIS POINT to sync the working directory
+      # for the application to the /app directory in the container
+      - .:/server:ro
+      - /server/node_modules
+    ports:
+        # External port:Internal port
+      - 5000:5000
+
