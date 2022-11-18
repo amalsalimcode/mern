@@ -41,6 +41,8 @@ services:
     volumes:
       # <nameOfVolume>:<directorInDocker>
       - mongoDB:/data/db
+  redis:
+    image: redis
 volumes:
   # Making the volume accessible by other containers
   mongoDB:
