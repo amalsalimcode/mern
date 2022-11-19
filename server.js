@@ -26,21 +26,28 @@ const connectDB = async () => {
     });
 };
 
-// Calling the Connect Function
 connectDB();
 
 // Creating the `GET` route
 app.get("/", async (req, res) => {
-  console.log("here are params", req.query)
-
-  const getBio = new bio({ name: req.query.name, age: req.query.age });
-  await getBio.save()
+  console.log("i got get request", req.query)
 
   const allbio = await bio.find();
   console.log(allbio);
 
-  res.send("<h1>Welcome Friends</h1>");
+  res.send(allbio);
 });
+
+
+app.post('/', async (req, res) => {
+  console.log("i got post request", req.params)
+
+  const getBio = new bio({ name: req.body.name, age: req.body.age });
+  await getBio.save()
+
+  res.send('Success')
+})
+
 
 //Starting the express server
 app.listen(PORT, () =>
