@@ -40,9 +40,9 @@ app.get("/", async (req, res) => {
 
 
 app.post('/', async (req, res) => {
-  console.log("i got post request", req.params)
+  console.log("i got post request", req.query)
 
-  const getBio = new bio({ name: req.body.name, age: req.body.age });
+  const getBio = new bio({ name: req.query.name, age: req.query.age });
   await getBio.save()
 
   res.send('Success')
